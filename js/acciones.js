@@ -1,8 +1,22 @@
 // JavaScript Document
 $(document).ready(function(e) {
 document.addEventListener("deviceready",function(){
+	var basedatos=window.sqliteplugin.openDatabase({name: "ColoresBD.db",createFromLocation:1});
+	cargarnombrejugador();
+	
+	function cargarnombrejugador()
+		{
+			basedetos.transaction(function(ejecutar){
+				var sql="SELECT NombreUsuario FROM Usuario";
+				ejecutar.executeSql(sql,undefined,function(ejecutar,resultado){
+					var datosjugador=resultado.rows.item(0);
+					$('#jugador').text(datosjugador.NombreUsuario);	
+			});
+		});}
+		
 	$('#btnjugar').on('tap',function(){
-		var basedatos=window.sqliteplugin.openDatabase({name: "ColoresBD.db",createFromLocation:1});
+		
+		
 		var pantalla=$.mobile.getScreenHeight();
 		var encabezado=$('.ui-header').outerHeight();
 		var pie=$('.ui-footer').outerHeight();
