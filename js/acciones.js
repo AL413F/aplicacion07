@@ -34,7 +34,7 @@ document.addEventListener("deviceready",function(){
 	$('.cuadro').on('vmousedown',function(){
 			$(this).addClass('pulsado');
 		});
-		$('.cuadro').on('vmouseup',function(){
+		//$('.cuadro').on('vmouseup',function(){
 			$(this).removeClass('pulsado');
 		});
 		function quien(q)
@@ -46,6 +46,33 @@ document.addEventListener("deviceready",function(){
 			$(this).addClass('pulsado');
 			
 		});
+		$('#btnCONFIGURAR').on('tap',function (){
+			$('#txtnombre').val($('#jugador').text());
+		});
+		$('#btnGUARDAR').on('tap',function(){
+			var nuevonombre =$('#txtnombre').var();
+			basedatos.transaction(function(consulta){
+				consulta.executeSql("UPDATE Usuario SET NombreUsuario=? WHERE claveUsuario='1';",[nuevonombre]);
+			});
+			cargarnombrejugador();
+			});
+			function flash(boton)
+			{
+				boton.stop().animate({opacity:'0.5'},{
+					duration:80,
+					complete:function(){
+						boton.stop().animate({opacity:'1'},
+						200);
+						}
+						
+			});
+
+}
+$('.cuadro').on('tap',function(){
+							flash($this);
+							audio.play($this).attr('id');
+						});
+		
 }); 
-});
+
 
